@@ -18,9 +18,9 @@ var closureDeps = require('gulp-closure-deps');
 
 var paths = {
   scripts: [
-    'bower_components/closure-library/closure/goog/**/*.js'
-    'bower_components/este-library/este/**/*.js'
-    'client/**/*.js'
+    'bower_components/closure-library/closure/goog/**/*.js',
+    'bower_components/este-library/este/**/*.js',
+    'client/**/*.js',
     'server/**/*.js'
   ]
 };
