@@ -1,4 +1,4 @@
-# [gulp](http://gulpjs.com)-closure-deps [![Build Status](https://secure.travis-ci.org/<%= githubUsername %>/gulp-closure-deps.png?branch=master)](http://travis-ci.org/<%= githubUsername %>/gulp-closure-deps)
+# [gulp](http://gulpjs.com)-closure-deps [![Build Status](https://secure.travis-ci.org/steida/gulp-closure-deps.png?branch=master)](http://travis-ci.org/steida/gulp-closure-deps)
 
 > Google Closure Library depswriter.py port for gulp
 
