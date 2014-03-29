@@ -29,7 +29,7 @@ gulp.task('default', function() {
   gulp.src(paths.scripts)
     .pipe(closureDeps({
       fileName: 'deps.js',
-      pathPrefix: '../../../../'
+      prefix: '../../../../'
     }))
     .pipe(gulp.dest('build'));
 });
@@ -48,10 +48,10 @@ Default: `deps.js`
 
 Generated file name.
 
-##### pathPrefix
+##### prefix
 
 Type: `String`  
-Default: `empty string`
+Default: `../../../../`
 
 Path prefix for paths resolving, from Closure Library base.js to root.
 

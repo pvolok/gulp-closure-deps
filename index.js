@@ -30,7 +30,7 @@ module.exports = function(opt) {
   opt = opt || {};
   var fileName = opt.fileName || 'deps.js';
   var files = [];
-  var pathPrefix = opt.pathPrefix || '';
+  var prefix = opt.prefix || '../../../../';
 
   function bufferContents(file) {
     if (file.isNull()) return;
@@ -47,7 +47,7 @@ module.exports = function(opt) {
     var lines = [];
 
     files.forEach(function(file) {
-      var path = pathPrefix + file.path.replace(file.cwd, '').slice(1);
+      var depsPath = path.join(prefix, file.path.replace(file.cwd, ''));
       var provides;
       var requires;
       var contents = file.contents.toString();
@@ -68,8 +68,8 @@ module.exports = function(opt) {
         requires = getMatches(contentsLines, requireRegex);
       }
 
-      var line = 'goog.addDependency(\'%path\', [%provides], [%requires]);';
-      line = line.replace('%path', path);
+      var line = 'goog.addDependency(\'%depsPath\', [%provides], [%requires]);';
+      line = line.replace('%depsPath', depsPath);
       line = line.replace('%provides', argify(provides));
       line = line.replace('%requires', argify(requires));
 

@@ -6,8 +6,10 @@ var closureDeps = require('../');
 
 describe('gulp-closure-deps', function() {
 	it('should generate deps.js file', function(done) {
-		gulp.src(__dirname + '/fixtures/*.js')
-			.pipe(closureDeps())
+		gulp.src(__dirname + '/fixtures/**/*.js')
+			.pipe(closureDeps({
+        prefix: '../'
+      }))
 			.pipe(gulp.dest(__dirname + '/results/'))
 			.pipe(es.wait(function() {
 				assert.equal(
