@@ -29,7 +29,7 @@ gulp.task('default', function() {
   gulp.src(paths.scripts)
     .pipe(closureDeps({
       fileName: 'deps.js',
-      prefix: '../../../../'
+      prefix: '../../../..'
     }))
     .pipe(gulp.dest('build'));
 });

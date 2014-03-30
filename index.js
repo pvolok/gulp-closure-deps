@@ -30,7 +30,7 @@ module.exports = function(opt) {
   opt = opt || {};
   var fileName = opt.fileName || 'deps.js';
   var files = [];
-  var prefix = opt.prefix || '../../../../';
+  var prefix = opt.prefix || '';
 
   function bufferContents(file) {
     if (file.isNull()) return;
