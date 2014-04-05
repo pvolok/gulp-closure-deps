@@ -1,4 +1,5 @@
-# [gulp](http://gulpjs.com)-closure-deps [![Build Status](https://secure.travis-ci.org/steida/gulp-closure-deps.png?branch=master)](http://travis-ci.org/steida/gulp-closure-deps) [![Dependency Status](https://david-dm.org/steida/gulp-closure-deps.png)](https://david-dm.org/steida/gulp-closure-deps) [![devDependency Status](https://david-dm.org/steida/gulp-closure-deps/dev-status.png)](https://david-dm.org/steida/gulp-closure-deps#info=devDependencies)
+# [gulp](http://gulpjs.com)-closure-deps
+[![Build Status](https://secure.travis-ci.org/steida/gulp-closure-deps.png?branch=master)](http://travis-ci.org/steida/gulp-closure-deps) [![Dependency Status](https://david-dm.org/steida/gulp-closure-deps.png)](https://david-dm.org/steida/gulp-closure-deps) [![devDependency Status](https://david-dm.org/steida/gulp-closure-deps/dev-status.png)](https://david-dm.org/steida/gulp-closure-deps#info=devDependencies)
 
 > Google Closure Library depswriter.py port for gulp
 
