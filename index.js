@@ -47,7 +47,9 @@ module.exports = function(opt) {
     var lines = [];
 
     files.forEach(function(file) {
-      var depsPath = path.join(prefix, file.path.replace(file.cwd, ''));
+      var depsPath = path.join(prefix, file.path.replace(file.cwd, ''))
+        // Fix Windows.
+        .replace(/\\/g, '/');
       var provides;
       var requires;
       var contents = file.contents.toString();
