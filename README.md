@@ -52,9 +52,19 @@ Generated file name.
 ##### prefix
 
 Type: `String`  
-Default: `../../../../`
+Default: ``
 
 Path prefix for paths resolving, from Closure Library base.js to root.
+
+#### methods
+
+##### changed
+
+Type: `String`  
+Returns: `Boolean`
+
+This method can be used in watch mode. You can pass changed file path and it
+returns whether deps file should be recreated.
 
 ## License
 
