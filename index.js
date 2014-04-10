@@ -104,7 +104,8 @@ module.exports = function(opt) {
 };
 
 module.exports.changed = function(changedFilePath) {
-  if (!changedFilePath) return true;
+  // We need at least once run deps to get prefix.
+  if (!changedFilePath || !prefix) return true;
   var previous = JSON.stringify(cache);
   var contents = fs.readFileSync(changedFilePath, 'utf-8');
   cache[changedFilePath] = extractDependency(changedFilePath, contents);
