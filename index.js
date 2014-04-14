@@ -8,7 +8,7 @@ const PLUGIN_NAME = 'gulp-closure-deps';
 
 var blockCommentRegex = /\/\*[^]*?\*\//g;
 var cache = {};
-var cwd, prefix;
+var cwd, prefix, baseDir;
 var provideRegex = /^\s*goog\.provide\(\s*['"](.+?)['"]\s*\)/;
 var requireRegex = /^\s*goog\.require\(\s*['"](.+?)['"]\s*\)/;
 
@@ -46,7 +46,8 @@ var extractDependency = function(filePath, contents) {
     requires = getMatches(contentsLines, requireRegex);
   }
   return 'goog.addDependency(\'%depsPath\', [%provides], [%requires]);'
-    .replace('%depsPath', path.join(prefix, filePath.replace(cwd, ''))
+    .replace('%depsPath', path.join(prefix, path.relative(baseDir, filePath))
+      .replace(cwd, '')
       // Fix for Windows.
       .replace(/\\/g, '/'))
     .replace('%provides', argify(provides))
@@ -56,6 +57,7 @@ var extractDependency = function(filePath, contents) {
 module.exports = function(opt) {
   opt = opt || {};
   prefix = opt.prefix || '';
+  baseDir = opt.baseDir || '';
   var fileName = opt.fileName || 'deps.js';
   var files = [];
 

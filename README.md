@@ -30,7 +30,8 @@ gulp.task('default', function() {
   gulp.src(paths.scripts)
     .pipe(closureDeps({
       fileName: 'deps.js',
-      prefix: '../../../..'
+      prefix: '../../../..',
+      baseDir: 'public/'
     }))
     .pipe(gulp.dest('build'));
 });
@@ -55,6 +56,13 @@ Type: `String`
 Default: ``
 
 Path prefix for paths resolving, from Closure Library base.js to root.
+
+##### baseDir
+
+Type: `String`
+Default: ``
+
+Optional base url for you public folder
 
 #### methods
 
