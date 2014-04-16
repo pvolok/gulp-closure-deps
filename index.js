@@ -24,9 +24,11 @@ var getMatches = function(contentsLines, regex) {
 };
 
 var argify = function(array) {
-  return array.map(function(item) {
-    return '\''+ item + '\'';
-  }).join(', ');
+  return function() {
+    return array.map(function(item) {
+      return '\''+ item + '\'';
+    }).join(', ');
+  }
 };
 
 var extractDependency = function(filePath, contents) {
