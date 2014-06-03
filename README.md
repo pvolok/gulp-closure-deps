@@ -74,6 +74,10 @@ Returns: `Boolean`
 This method can be used in watch mode. You can pass changed file path and it
 returns whether deps file should be recreated.
 
+### Error: EMFILE Issue
+
+OSX has default limit for opened files set to 256. Fix it with ```ulimit -n 10000```
+
 ## License
 
 MIT © [Daniel Steigerwald](https://github.com/steida)
