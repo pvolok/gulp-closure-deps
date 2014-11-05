@@ -9,8 +9,9 @@ const PLUGIN_NAME = 'gulp-closure-deps';
 var blockCommentRegex = /\/\*[^]*?\*\//g;
 var cache = {};
 var cwd, prefix, baseDir;
+var moduleRegex = /^\s*goog\.module\(\s*['"](.+?)['"]\s*\)/;
 var provideRegex = /^\s*goog\.provide\(\s*['"](.+?)['"]\s*\)/;
-var requireRegex = /^\s*goog\.require\(\s*['"](.+?)['"]\s*\)/;
+var requireRegex = /^\s*(?:(?:var|let|const)\s+[a-zA-Z_$][a-zA-Z0-9$_]*\s*=\s*)?goog\.require\(\s*['"](.+?)['"]\s*\)/;
 
 var getMatches = function(contentsLines, regex) {
   var matches = [];
@@ -19,7 +20,6 @@ var getMatches = function(contentsLines, regex) {
     if (!match || matches.indexOf(match[1]) > -1) return;
     matches.push(match[1]);
   });
-  matches.sort();
   return matches;
 };
 
@@ -32,10 +32,11 @@ var argify = function(array) {
 };
 
 var extractDependency = function(filePath, contents) {
-  var provides, requires;
+  var modules, provides, requires;
 
   // Goog base.js provides goog implicitly.
   if (contents.indexOf('* @provideGoog') != -1) {
+    modules = [];
     provides = ['goog'];
     requires = [];
   }
@@ -43,17 +44,21 @@ var extractDependency = function(filePath, contents) {
     // Remove block comments to ignore commented goog.provide and goog.require.
     // http://stackoverflow.com/a/2458858/233902
     var contentsLines = contents.replace(blockCommentRegex, '').split('\n');
-    provides = getMatches(contentsLines, provideRegex);
+    modules = getMatches(contentsLines, moduleRegex);
+    provides = getMatches(contentsLines, provideRegex).concat(modules).sort();
     if (!provides.length) return;
-    requires = getMatches(contentsLines, requireRegex);
+    requires = getMatches(contentsLines, requireRegex).sort();
   }
-  return 'goog.addDependency(\'%depsPath\', [%provides], [%requires]);'
+  var depsLine = 'goog.addDependency(\'%depsPath\', [%provides], [%requires]' +
+    ', %isModule);';
+  return depsLine
     .replace('%depsPath', path.join(prefix, path.relative(baseDir, filePath))
       .replace(cwd, '')
       // Fix for Windows.
       .replace(/\\/g, '/'))
     .replace('%provides', argify(provides))
-    .replace('%requires', argify(requires));
+    .replace('%requires', argify(requires))
+    .replace('%isModule', String(!!modules.length));
 };
 
 module.exports = function(opt) {
